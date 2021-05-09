@@ -1,6 +1,9 @@
 我们有时候会遇到这种业务场景： 进入某个页面时，我们需要验证用户是否已经登陆，是否拥有足够权限？
 我们可以通过监听路由的变化来实现。但是在react下，怎么实现呢？`react-router-watcher`为您提供了一种方案。
 
+## 安装
+npm i -S react-router-watcher
+
 ## 注意使用细节
   无论使用以下哪种方式，都必须放在Router组件的孩子节点中。
   使用之前，若不熟悉`react-router`，请最好先了解下[react-router](https://github.com/ReactTraining/react-router#readme)
