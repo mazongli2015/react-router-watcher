@@ -20,16 +20,18 @@
 ```
 使用方式：
 ```js
- <ReactRouterWatcher>
-  {
-    ({
-      addRouteChangeListener, // 
-      removeRouteChangeListener
-    }) => {
-      return <Main addRouteChangeListener={addRouteChangeListener} removeRouteChangeListener={removeRouteChangeListener}/>
+<Router>
+  <ReactRouterWatcher>
+    {
+      ({
+        addRouteChangeListener, // 
+        removeRouteChangeListener
+      }) => {
+        return <Main addRouteChangeListener={addRouteChangeListener} removeRouteChangeListener={removeRouteChangeListener}/>
+      }
     }
-  }
-</ReactRouterWatcher>
+  </ReactRouterWatcher>
+<Router>
 ```
 
 ## 监听函数
@@ -52,6 +54,10 @@ withWatcher是一个高阶函数，接受一个React组件作为参数，返回�
 使用方式：
 ```js
 const Content = withWatcher(Main)
+
+<Router>
+  <Content />
+</Router>
 ```
 
 ### hook
@@ -60,6 +66,10 @@ const Content = () => {
   const watcher = useRouteWatcher()
   return <Main addRouteChangeListener={watcher.addListener} removeRouteChangeListener={watcher.removeListener}/>
 }
+
+<Router>
+  <Content />
+</Router>
 
 ```
 ## 准备
@@ -127,7 +137,8 @@ export default Main
 
 ```
 
-## 方法一： 使用ReactRouterWatcher组件
+# 案例
+## 使用ReactRouterWatcher组件
 
 ```js
 import {
@@ -155,7 +166,7 @@ function App() {
 
 ```
 
-## 方法二： 使用高阶函数withWatcher
+## 使用高阶函数withWatcher
 
 ```js
 import {
