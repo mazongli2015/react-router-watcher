@@ -54,7 +54,7 @@ function App() {
 
 
 export default App;
-```js
+```
 
 
 ## 使用hook
@@ -93,4 +93,4 @@ function App() {
     </Router>
   );
 }
-```js
+```
