@@ -1,13 +1,9 @@
 "use strict";
 
-var _interopRequireDefault = require("/home/laoma/study-space/react-router-watcher/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/interopRequireDefault");
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
+exports.__esModule = true;
 exports.default = void 0;
 
-var _slicedToArray2 = _interopRequireDefault(require("/home/laoma/study-space/react-router-watcher/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/esm/slicedToArray"));
+require("core-js/modules/es6.array.find-index.js");
 
 var _react = require("react");
 
@@ -19,9 +15,8 @@ var useWatcher = function useWatcher() {
   var match = (0, _reactRouter.useRouteMatch)();
 
   var _useState = (0, _react.useState)(''),
-      _useState2 = (0, _slicedToArray2.default)(_useState, 2),
-      pathname = _useState2[0],
-      setPathname = _useState2[1];
+      pathname = _useState[0],
+      setPathname = _useState[1];
 
   var listeners = (0, _react.useRef)([]);
   var addListener = (0, _react.useCallback)(function (listener) {
