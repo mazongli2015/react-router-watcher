@@ -59,7 +59,6 @@
     "react-refresh": "^0.8.3",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
-    "react-router-watcher": "latest",
     "resolve": "1.18.1",
     "resolve-url-loader": "^3.1.2",
     "rimraf": "^3.0.2",
@@ -88,8 +87,7 @@
   },
   "files": [
     "build",
-    "src",
-    "example"
+    "src"
   ],
   "browserslist": {
     "production": [
