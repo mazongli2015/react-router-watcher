@@ -211,8 +211,6 @@ const Content = () => {
 }
 
 function App() {
-  const watcher = useRouteWatcher()
-  
   return (
     <Router>
       <div className="App">
