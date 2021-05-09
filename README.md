@@ -197,7 +197,7 @@ export default App;
 
 
 ```js
-import { useCallback, useEffect } from 'react'
+import React from 'react'
 import {
   HashRouter as Router
 } from "react-router-dom";
