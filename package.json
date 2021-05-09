@@ -3,6 +3,8 @@
   "version": "0.1.1",
   "main": "build/index.js",
   "devDependencies": {
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
     "react-router-watcher": ".",
     "@babel/cli": "^7.13.16",
     "@babel/core": "7.12.3",
@@ -106,7 +108,6 @@
     ]
   },
   "dependencies": {
-    "react-router": "^5.2.0",
-    "react-router-dom": "^5.2.0"
+   
   }
 }
