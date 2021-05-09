@@ -2,8 +2,66 @@
 我们可以通过监听路由的变化来实现。但是在react下，怎么实现呢？`react-router-watcher`为您提供了一种方案。
 
 ## 注意使用细节
-  无论使用以下哪种方式，都必须放在Router组件的孩子节点中
+  无论使用以下哪种方式，都必须放在Router组件的孩子节点中。
+  使用之前，若不熟悉`react-router`，请最好先了解下[react-router](https://github.com/ReactTraining/react-router#readme)
 
+## API
+
+### ReactRouterWatcher
+  ReactRouterWatcher是一个headless风格的组件，children必须是一个函数， 该函数的形式是：
+```js
+  ({
+    addRouteChangeListener, // 作用是添加监听函数，接受一个监听函数作为参数
+    removeRouteChangeListener // 作用是移除监听函数，接受一个监听函数作为参数
+  }) => {
+    // 必须返回一个react组件
+    return SomeReactComponent
+  }
+```
+使用方式：
+```js
+ <ReactRouterWatcher>
+  {
+    ({
+      addRouteChangeListener, // 
+      removeRouteChangeListener
+    }) => {
+      return <Main addRouteChangeListener={addRouteChangeListener} removeRouteChangeListener={removeRouteChangeListener}/>
+    }
+  }
+</ReactRouterWatcher>
+```
+
+## 监听函数
+监听函数形式如下：
+```js
+/**
+ *   history, match, location // 这三个参数与调用react-router的withRouter注入的参数一致
+ * @param history
+ * @param match
+ * @param location
+**/
+function({history, match, location}){
+
+}
+
+```
+
+### withWatcher
+withWatcher是一个高阶函数，接受一个React组件作为参数，返回一个新的react组件，这个新的组件将被自动注入addRouteChangeListener, removeRouteChangeListener两个属性
+使用方式：
+```js
+const Content = withWatcher(Main)
+```
+
+### hook
+```js
+const Content = () => {
+  const watcher = useRouteWatcher()
+  return <Main addRouteChangeListener={watcher.addListener} removeRouteChangeListener={watcher.removeListener}/>
+}
+
+```
 ## 准备
 
 假设存在一个Main.js组件：
@@ -97,7 +155,7 @@ function App() {
 
 ```
 
-## 方法二： 使用高阶函数
+## 方法二： 使用高阶函数withWatcher
 
 ```js
 import {
