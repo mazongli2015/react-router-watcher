@@ -1,6 +1,73 @@
 我们有时候会遇到这种业务场景： 进入某个页面时，我们需要验证用户是否已经登陆，是否拥有足够权限？
 我们可以通过监听路由的变化来实现。但是在react下，怎么实现呢？`react-router-watcher`为您提供了一种方案。
 
+## 注意使用细节
+  无论使用以下哪种方式，都必须放在Router组件的孩子节点中
+
+
+假设存在一个Main.js组件：
+
+```js
+import {
+  Switch,
+  Route,
+  useHistory
+} from "react-router-dom";
+import {useCallback, useEffect, useState} from 'react'
+import routes from './router/router'
+
+const Main = ({addRouteChangeListener, removeRouteChangeListener}) => {
+  const history = useHistory()
+  const [active, setActive] = useState('foo')
+  const setBar = useCallback(() => {
+    if (active === 'bar') return
+    setActive('bar')
+    history.push('/bar')
+  }, [active, history])
+  const setFoo = useCallback(() => {
+    if (active === 'foo') return
+    setActive('foo')
+    history.push('/foo')
+  }, [active, history])
+
+  const onRouteChange = useCallback((context) => {
+    console.log('onRouteChange----c--context----s--', context)
+  }, [])
+
+  useEffect(() => {
+    addRouteChangeListener(onRouteChange)
+    return () => removeRouteChangeListener && removeRouteChangeListener(onRouteChange)
+    // return () => {
+    //   removeRouteChangeListener(onRouteChange)
+    // }
+  }, [addRouteChangeListener, onRouteChange, removeRouteChangeListener])
+
+  return (
+    <>
+      <div  style={{height: 80, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+        <button style={active === 'foo' ? {color: 'blue', marginRight: 8} : {marginRight: 8}}  onClick={setFoo}>Foo</button>
+        <button style={active === 'bar' ? {color: 'blue', marginRight: 8} : {marginRight: 8}} onClick={setBar}>Bar</button>
+      </div>
+      <Switch >
+        {
+          routes.map((item) => {
+            const Component = item.component
+            return (
+              <Route path={item.url} key={item.url} exact >
+                <Component />
+              </Route>
+            )
+          })
+        }
+      </Switch>
+    </>
+  )
+}
+
+export default Main
+
+```
+
 ## 方法一： 使用ReactRouterWatcher组件
 
 ```js
@@ -56,8 +123,8 @@ function App() {
 export default App;
 ```
 
-
 ## 使用hook
+
 
 ```js
 import { useCallback, useEffect } from 'react'
@@ -70,21 +137,12 @@ import './App.css';
 
 const Content = () => {
   const watcher = useRouteWatcher()
-  const onRouteChange = useCallback((context) => {
-    console.log('onRouteChange---c----use hook-----', context)
-  }, [])
-
-  useEffect(() => {
-    watcher.addListener(onRouteChange)
-    return () => {
-      watcher.removeListener(onRouteChange)
-    }
-  }, [watcher, onRouteChange])
-
-  return <Main />
+  return <Main addRouteChangeListener={watcher.addListener} removeRouteChangeListener={watcher.removeListener}/>
 }
 
 function App() {
+  const watcher = useRouteWatcher()
+  
   return (
     <Router>
       <div className="App">
