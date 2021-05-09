@@ -1,6 +1,6 @@
 {
   "name": "react-router-watcher",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "main": "build/index.js",
   "devDependencies": {
     "@babel/cli": "^7.13.16",
